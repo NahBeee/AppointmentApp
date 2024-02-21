@@ -12,22 +12,22 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 
-app.UseAuthorization();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapControllers();
-
-app.MapFallbackToFile("/index.html");
+app.MapFallbackToFile("/index.html"); 
 
 app.Run();
