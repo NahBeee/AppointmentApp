@@ -19,7 +19,7 @@ export default function Home(props){
                     <div className="btn add">+</div>
                 </div>
 
-                <div className="notifications spacer-20">This is test text</div>
+                <div className="notifications spacer-20"></div>
 
                 <section className="row justify-btw items-center filter">
                     <div className="modal-title">Filter</div>
@@ -89,17 +89,17 @@ export default function Home(props){
 
                 }
                 <section>
-                    <section className="modal delete-modal">
+                    <section className="modal delete-modal hidden">
                         <Delete />
                     </section>
                 </section>
                 <section>
-                    <section className="modal edit-modal">
+                    <section className="modal edit-modal hidden">
                         <Edit />
                     </section>
                 </section>
                 <section>
-                    <section className="modal new-modal">
+                    <section className="modal new-modal hidden">
                         <New />
                     </section>
                 </section>
