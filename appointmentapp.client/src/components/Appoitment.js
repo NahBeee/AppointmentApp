@@ -1,7 +1,7 @@
 export default function Appointments (props){
     const levelOfImportance = ["Very Low", "Low", "Normal", "Medium", "High", "Very High"];
     return(
-        <div className={`row underline ${props.item.deleted ? ' bg-red' : props.item.done ? ' bc-green': ''}`}>
+        <div className={`row py-5 underline ${props.item.deleted ? ' bg-red' : props.item.done ? ' bc-green': ''}`}>
             <div className="column id">{props.item.ID}</div>
             <div className="column title">{props.item.Title}</div>
             <div className="column description">{props.item.Description}</div>
