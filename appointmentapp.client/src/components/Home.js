@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import Delete from "./Delete";
 import Edit from "./Edit";
 import New from "./New";
-import Appointment from "./Appoitment";
-import { testData } from "./Lib";
+import Appointment from "./Appointment";
+import { getDefault, openModal} from "./Lib";
 
 export default function Home(props){
     const [dataList, setDataList] = useState([]);
     useEffect(()=>{
-        setDataList(testData)
+        getDefault().then(data =>{
+            setDataList(data)
+        }).catch(e=> console.log("Error in Home Components: ", e))
     },[])
     return(
         <main>
@@ -16,7 +18,7 @@ export default function Home(props){
                 <h1> Manage Appointments</h1>
                 <p>This website will help you to manage your appointments.</p>
                 <div className="add-btn row items-center content-center">
-                    <div className="btn add">+</div>
+                    <div className="btn add" onClick={()=>openModal("new-modal")}>+</div>
                 </div>
 
                 <div className="notifications spacer-20"></div>

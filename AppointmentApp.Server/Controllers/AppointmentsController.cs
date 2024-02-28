@@ -21,7 +21,7 @@ namespace AppointmentApp.Server.Controllers
             _context = context;
         }
 
-        // GET: api/Appointments
+        // GET: api/appointment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
         {
@@ -84,7 +84,7 @@ namespace AppointmentApp.Server.Controllers
         {
             if (id != appointment.ID)
             {
-                return BadRequest("You are trying ti modify the wrong appoinment");
+                return BadRequest("You are trying to modify the wrong appoinment");
             }
 
             _context.Entry(appointment).State = EntityState.Modified;
