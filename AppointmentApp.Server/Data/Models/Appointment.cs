@@ -26,7 +26,7 @@ namespace AppointmentApp.Server.Data.Models
 
         [MaxLength(10), Column(TypeName = "nvarchar(10)")]
         public string Time { get; set; } = "12:30";
-        
+
         public bool Done { get; set; } = false;
 
         public bool Cancelled { get; set; } = false;
