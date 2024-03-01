@@ -12,7 +12,7 @@ export const entry = {
     description: "Test description",
     address: "Test address",
     date: new Date(),
-    time: "12:30",
+    time: formatTimeToStr(),
     done: false,
     deleted: false,
     levelOfImportance: 2,
@@ -21,14 +21,16 @@ export const entry = {
 export const filter = {
     LevelOfImportance: null,
     All: false,
-    Deleted: false,
+    Cancelled: false,
     Done: false,
     StartDate: null,
     EndDate: null,
     SpecifiedDate: null,
     SpecifiedTime: null
 };
-
+export const activeId ={
+    id: 0
+}
 export async function getDefault(){
     const res = await fetch(url)
 
@@ -97,4 +99,54 @@ export function formatTimeToStr(d){
     const hr_ = nd.getHours() < 9 ? 0 + "" + nd.getHours() : nd.getHours();
     const min_ = nd.getMinutes() < 9 ? 0 + "" +nd.getMinutes(): nd.getMinutes();
     return hr_ + ":" + min_;
+}
+
+export async function deleteAppointment(id){
+    const res = await fetch(url + "/" +id ,{
+        method: "DELETE"
+    })
+
+    if(!res.ok){
+        console.log("It is getting stucked at default data: ", res)
+        notifyUser("Something got wrong, please refresh the page!!")
+        return {msg:res}
+    }
+    
+    return res
+}
+
+export async function updateAppointment(updateApp){
+    const res = await fetch(url + "/" + updateApp.id, {
+        method:"PUT",
+        body: JSON.stringify(updateApp),
+        headers:{
+            "content-type":"application/json"
+        }
+    })
+
+    if(!res.ok){
+        console.log("It is getting stucked at default data: ", res)
+        notifyUser("Something got wrong, please refresh the page!!")
+        return {msg: res}
+    }
+    
+    return res
+}
+
+export async function getAppointment(filter_){
+    const res = await fetch(url + "/filters", {
+        method:"POST",
+        body: JSON.stringify(filter_),
+        headers:{
+            "content-type":"application/json"
+        }
+    })
+
+    if(!res.ok){
+        console.log("It is getting stucked with this filters: ", res)
+        notifyUser("Something got wrong, please reset the filters!!")
+        return []
+    }
+    
+    return await res.json()
 }

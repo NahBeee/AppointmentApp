@@ -34,6 +34,7 @@ export default function New (props){
     const postApp= () => {
         postAppointment(entry).then( r=> {
             console.log(r)
+            props.refreshApp(Math.random() *125 * Math.random())
         }).catch(e=>console.log("Error while making new appointment!!", e))
         closeModal("new-modal");
     }

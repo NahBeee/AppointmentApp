@@ -25,11 +25,11 @@ namespace AppointmentApp.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
         {
-            if(_context.Appointments == null)
+            if (_context.Appointments == null)
             {
                 return NotFound("No Data Found");
             }
-            return await _context.Appointments.Where(e=>! e.Cancelled && !e.Done).ToListAsync();
+            return await _context.Appointments.Where(e => !e.Cancelled && !e.Done).ToListAsync();
         }
 
         // GET: api/Appointments/5
@@ -59,9 +59,9 @@ namespace AppointmentApp.Server.Controllers
             {
                 return allData;
             }
-            if (filters.LevelOfImportance !=null)
+            if (filters.LevelOfImportance != null)
             {
-                allData = allData.Where(e => e.LevelOfImportance == filters.LevelOfImportance).ToList();            
+                allData = allData.Where(e => e.LevelOfImportance == filters.LevelOfImportance).ToList();
             }
             if (filters.SpecifiedDate != null)
             {
@@ -72,7 +72,7 @@ namespace AppointmentApp.Server.Controllers
                 allData = allData.Where(e => e.Date == filters.StartDate && e.Date <= filters.EndDate).ToList();
             }
             allData = allData.Where(e => e.Done == filters.Done).ToList();
-            allData =allData.Where(e=> e.Cancelled == filters.Cancelled).ToList();
+            allData = allData.Where(e => e.Cancelled == filters.Cancelled).ToList();
 
             return allData;
         }
@@ -93,8 +93,8 @@ namespace AppointmentApp.Server.Controllers
             {
                 Appointment entry_ = await _context.Appointments.FindAsync(appointment.ID);
                 //check each column to avoid assign the same value
-                if (entry_.Title != appointment.Title) 
-                { 
+                if (entry_.Title != appointment.Title)
+                {
                     entry_.Title = appointment.Title;
                 }
 
@@ -163,8 +163,10 @@ namespace AppointmentApp.Server.Controllers
             {
                 _context.Appointments.Add(appointment);
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException e)
-            {;
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                ;
                 return BadRequest("Could not create the new Appoinment: " + e.Message);
             }
 
@@ -178,10 +180,10 @@ namespace AppointmentApp.Server.Controllers
             var appointment = await _context.Appointments.FindAsync(id);
             if (appointment == null)
             {
-                return NotFound("No Appoinment with this ID "+ id);
+                return NotFound("No Appoinment with this ID " + id);
             }
 
-            
+
             _context.Appointments.Remove(appointment);
             await _context.SaveChangesAsync();
 
